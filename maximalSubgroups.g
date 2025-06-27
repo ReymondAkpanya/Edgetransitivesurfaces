@@ -171,31 +171,36 @@ end;
 
 
 
-BindGlobal("SymSurf_AllCandidatesE", function(G)
+BindGlobal("SymSurf_AllCandidatesE", function(G,edge)
     local path, magma, input, res, output; 
     if SymSurf_Magma=true then 
         path := DirectoriesSystemPrograms();
         magma := Filename( path, "magma" );
-        input := InputTextString(Concatenation([
+        input := InputTextString(Concatenation(
+                ["load \"/home/data/akpanya/Edgetransitivesurfaces/implementationMagma.m\";\n",
                 ReplacedString(ReplacedString(ConvertToMagmaInputString(G, "G"), "()", ""), ",\n,", ""),
-                "M := AllCandidatesOfAutomorphismGroupsOfEdgeTransitiveSurfaces_MagmaCT;\n",
+                "M := AllCandidatesOfAutomorphismGroupsOfEdgeTransitiveSurfaces_MagmaCT(G,",String(edge),");\n",
                 "print([\"Group(\"*Sprint([x : x in Generators(m)])*\")\" : m in M]);"
             ]));
         res := "";
 #        magma:=Concatenation(magma," implementationMagma.m");
         output := OutputTextString(res, true);
         SetPrintFormattingStatus(output,false);
-        Process(path[1], magma, input, output, ["-b","implementationMagma.m"]);
+        Process(path[1], magma, input, output, ["-b"]);
+        res:=SplitString(res,"\n");
+        res:=Concatenation(res{[2..Length(res)]});
         # edge case: trivial group constructor
         res := ReplacedString(res, "[]", "()");
-        return EvalString(res);
+        res:=EvalString(res);
+        if res=() then res:=[]; fi;
+        return res;
     else 
-        return AllCandidatesOfAutomorphismGroupsOfEdgeTransitiveSurfaces_GAPCT(G);
+        return AllCandidatesOfAutomorphismGroupsOfEdgeTransitiveSurfaces_GAPCT(G,edge);
     fi;
 end);
 
-BindGlobal("SymSurf_AllCandidatesFiltered", function(G,order)
+BindGlobal("SymSurf_AllCandidatesFilteredE", function(G,edge,order)
     local g, temp;
-    temp:=SymSurf_AllCandidates(G);
+    temp:=SymSurf_AllCandidatesE(G,edge);
     return Filtered(temp,g->Order(g)=order);
 end);
