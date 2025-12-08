@@ -26,16 +26,13 @@ This is the core implementation of the algorithm described in the paper.
 
 ### `EulerO.g` and `EulerNO.g`  
 These files contain the orientable (`EulerO.g`) and non-orientable (`EulerNO.g`) surfaces identified in the census.  
-Each file includes:  
-- the triangulation data,  
-- Euler characteristic and genus,  
-- group-action information.
+Each file includes data on Euler characteristics and genera of the computed surfaces.  
 
 ---
 
 ## Requirements
 
-- **SimplicialSurfaces** (GAP package) — available at https://github.com/gap-packages/SimplicialSurfaces :contentReference[oaicite:2]{index=2}  
+- **SimplicialSurfaces** (GAP package) — available at https://github.com/gap-packages/SimplicialSurfaces  
 
 Make sure that the SimplicialSurfaces package (and its dependencies) are installed in your local GAP `pkg/` folder before using this repository.
 
