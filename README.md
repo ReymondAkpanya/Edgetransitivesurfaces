@@ -24,9 +24,8 @@ The main GAP source file providing the functions required to:
 
 This is the core implementation of the algorithm described in the paper.
 
-### `EulerO.g` and `EulerNO.g`  
-These files contain the orientable (`EulerO.g`) and non-orientable (`EulerNO.g`) surfaces identified in the census.  
-Each file includes data on Euler characteristics and genera of the computed surfaces.  
+### `dataEdgetransitive.pdf`  
+These files contains the numbers of orientable and non-orientable surfaces with respect to the face-edge type identified in the census.  
 
 ---
 
